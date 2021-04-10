@@ -1,9 +1,8 @@
-const { selectRandomWord } = require("./utils");
+const { selectRandomWord, findAll } = require("./utils");
 const dataset = require("./dataset.json");
 const inquirer = require("inquirer");
-const { displayGameHint } = require("./display");
+const { displayGameHint, displayWrongAttempt } = require("./display");
 let questions = [
-  //question prompt for guessing the word
   {
     type: "input",
     name: "guessWord",
@@ -14,24 +13,11 @@ let questions = [
       return "Please enter alphabets only.";
     },
   },
-  //question prompt for choosing what to do after incorrect answer
   {
     type: "list",
     name: "nextOption",
-    message: "what would you do now?",
+    message: "What would you do now?",
     choices: ["Try Again", "Hint", "Quit"],
-  },
-  //question prompt for choosing between hints
-  {
-    type: "list",
-    name: "typeOfHint",
-    message: "which type of hint to you want",
-    choices: [
-      "Display the word randomly jumbled",
-      "Display another definition",
-      "Display another antonym",
-      "Display another synonym",
-    ],
   },
 ];
 function wordGuessPrompt() {
@@ -50,41 +36,64 @@ function wrongGuessPrompt() {
   });
 }
 
-function hintPrompt() {
-  return new Promise((resolve, reject) => {
-    inquirer.prompt(questions[2]).then((answer) => {
-      resolve(answer);
-    });
-  });
-}
 function checkAnswer(guess, answer, remainingSynonyms) {
   if (guess === answer || remainingSynonyms.includes(guess)) {
     console.log("You got the correct word!");
+    return true;
   }
   return false;
 }
 
 async function game() {
-  hintsGiven = {};
-  answer = selectRandomWord;
-  let remainingSynonyms = dataset[answer.synonyms];
-  initialRandomHintType = Object.keys(dataset[answer])[
+  let answer = selectRandomWord;
+  let remainingHints = dataset[answer];
+  let initialRandomHintType = Object.keys(dataset[answer])[
     Math.floor(Math.random() * (Object.keys(dataset[answer]).length - 1))
   ];
-  initialRandomHint =
+  let initialRandomHint =
     dataset[answer][initialRandomHintType][
       Math.floor(Math.random() * dataset[answer][initialRandomHintType].length)
     ];
-  hintsGiven[initialRandomHintType] = initialRandomHint;
-  if (initialRandomHintType === "synonms") {
-    remainingSynonyms = remainingSynonyms.filter(
-      (word) => word !== initialRandomHint
-    );
-  }
+  remainingHints[initialRandomHintType] = remainingHints[
+    initialRandomHintType
+  ].filter((word) => word !== initialRandomHint);
   displayGameHint(initialRandomHint, initialRandomHintType);
   let guess = await wordGuessPrompt();
-  console.log(`Your guess : ${guess.guessWord}`);
-  checkAnswer(guess.guessWord, answer, remainingSynonyms);
+  if (!checkAnswer(guess.guessWord, answer, remainingHints.synonyms)) {
+    displayWrongAttempt();
+    let choice = await wrongGuessPrompt();
+    while (choice.nextOption !== "Quit") {
+      if (choice.nextOption === "Try Again") {
+        guess = await wordGuessPrompt();
+        if (!checkAnswer(guess.guessWord, answer, remainingHints.synonyms)) {
+          displayWrongAttempt();
+          choice = await wrongGuessPrompt();
+        } else {
+          break;
+        }
+      } else if (choice.nextOption === "Hint") {
+        let hintType = Object.keys(dataset[answer])[
+          Math.floor(Math.random() * (Object.keys(dataset[answer]).length - 1))
+        ];
+        let hint =
+          dataset[answer][hintType][
+            Math.floor(Math.random() * dataset[answer][hintType].length)
+          ];
+        remainingHints[hintType] = remainingHints[hintType].filter(
+          (word) => word !== hint
+        );
+        displayGameHint(hint, hintType);
+        guess = await wordGuessPrompt();
+        if (!checkAnswer(guess.guessWord, answer, remainingHints.synonyms)) {
+          displayWrongAttempt();
+          choice = await wrongGuessPrompt();
+        } else {
+          break;
+        }
+      }
+    }
+    findAll(answer);
+  }
 }
 
 module.exports = game;

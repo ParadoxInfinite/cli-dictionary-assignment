@@ -28,12 +28,19 @@ function displayNotFound(word) {
     outputFormat(word) + " is not in our database, please try another word."
   );
 }
-
+function displayWrongAttempt() {
+  console.log(outputFormat("Wrong answer!"));
+}
 function outputFormat(wordToFormat) {
-  return chalk.bgCyan.whiteBright(" " + wordToFormat + " ");
+  return chalk.bgCyan.black(" " + wordToFormat + " ");
 }
 
 function displayGameHint(hint, type) {
   console.log("Hint: " + outputFormat(hint) + " | Type: " + outputFormat(type));
 }
-module.exports = { displayOutput, displayNotFound, displayGameHint };
+module.exports = {
+  displayOutput,
+  displayNotFound,
+  displayGameHint,
+  displayWrongAttempt,
+};
