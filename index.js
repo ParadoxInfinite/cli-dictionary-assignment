@@ -2,7 +2,14 @@
 
 // @see https://www.npmjs.com/package/commander
 const { program } = require("commander");
-const displayOutput = require("./display");
+const {
+  findSynonyms,
+  findAntonyms,
+  findAll,
+  findExample,
+  findDefinition,
+  findRandom,
+} = require("./utils");
 
 // Initialize commander
 program
@@ -12,22 +19,22 @@ program
 program
   .command("def <word>")
   .description("Shows the definition of the given word")
-  .action((word) => console.log(`Definition for the word ${word} is:`));
+  .action((word) => findDefinition(word));
 
 program
   .command("syn <word>")
   .description("Shows the synonyms for the given word")
-  .action((word) => displayOutput(word, "synonyms"));
+  .action((word) => findSynonyms(word));
 
 program
   .command("ant <word>")
   .description("Shows the antonyms for the given word")
-  .action((word) => console.log(`Antonyms for the word ${word} are:`));
+  .action((word) => findAntonyms(word));
 
 program
   .command("ex <word>")
-  .description("Shows the examples for the given word")
-  .action((word) => console.log(`Examples for the word ${word} is:`));
+  .description("Shows an example for the given word")
+  .action((word) => findExample(word));
 
 program
   .command("play")
@@ -35,10 +42,10 @@ program
   .action(() => console.log(`Start the game`));
 
 if (process.argv[2] === undefined) {
-  console.log("Word of the day");
+  findRandom();
   return;
 } else if (process.argv.length === 3 && !process.argv[2].includes("-")) {
-  console.log("All information about the given word");
+  findAll(process.argv[2]);
   return;
 }
 

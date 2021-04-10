@@ -1,25 +1,36 @@
 const chalk = require("chalk");
-const { findSynonyms } = require("./utils");
-function displayOutput(word, type) {
-  let results;
-  switch (type) {
-    case "synonyms":
-      results = findSynonyms(word);
-  }
+function displayOutput(word, type, results) {
   if (results) {
     console.log(
       chalk.grey("---------------------------------------------------------")
     );
-    console.log("Given word: " + chalk.bgCyan.white(word));
-    console.log(
-      chalk.bgGrey.black(type) +
-        " for the given word is: " +
-        chalk.bgGrey.whiteBright(results)
-    );
+    console.log("Given word: " + chalk.bgCyan.whiteBright(" " + word + " "));
+    if (type !== "All") {
+      console.log(
+        chalk.bgCyan.whiteBright(" " + type + " ") +
+          " for the given word: " +
+          chalk.bgCyan.whiteBright(" " + results + " ")
+      );
+    } else {
+      for (let type in results) {
+        console.log(
+          chalk.bgCyan.whiteBright(
+            " " + type[0].toUpperCase() + type.slice(1) + " "
+          ) +
+            " for the given word: " +
+            chalk.bgCyan.whiteBright(" " + results[type] + " ")
+        );
+      }
+    }
     console.log(
       chalk.grey("---------------------------------------------------------")
     );
   }
 }
-
-module.exports = displayOutput;
+function displayNotFound(word) {
+  console.log(
+    chalk.bgCyan.whiteBright(" " + word + " ") +
+      " is not in our database, please try another word."
+  );
+}
+module.exports = { displayOutput, displayNotFound };

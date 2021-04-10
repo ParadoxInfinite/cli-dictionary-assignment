@@ -3,18 +3,12 @@
     "definition": "A particular method of reasoning or argumentation.",
     "synonyms": ["sanity", "sense", "rationale"],
     "antonyms": ["foolishness", "madness", "absurdity"],
-    "examples": [
-      "The math genius used logic and a special formula to solve the difficult equation.",
-      "When people get too emotional, their logic disappears and they make irrational decisions."
-    ]
+    "example": "The math genius used logic and a special formula to solve the difficult equation."
   },
   "blur": {
     "definition": "To obscure or sully (something) by smearing or with a smeary substance.",
     "synonyms": ["dim", "muddy", "bedim"],
     "antonyms": ["focus", "clear", "clarify"],
-    "examples": [
-      "This is where the dividing line between ratepayers and taxpayers begins to blur.",
-      "The company insist that their experiments are not in any way intended to blur the lines between human and animal."
-    ]
+    "example": "This is where the dividing line between ratepayers and taxpayers begins to blur."
   }
 }
