@@ -1,0 +1,27 @@
+{
+  "name": "cli-dictionary-assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "dict": "./index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ParadoxInfinite/cli-dictionary-assignment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ParadoxInfinite/cli-dictionary-assignment/issues"
+  },
+  "homepage": "https://github.com/ParadoxInfinite/cli-dictionary-assignment#readme",
+  "dependencies": {
+    "commander": "^7.2.0",
+    "inquirer": "^8.0.0"
+  }
+}
