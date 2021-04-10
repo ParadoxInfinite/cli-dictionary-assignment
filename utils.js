@@ -30,11 +30,12 @@ function findAll(word) {
   }
 }
 function findRandom() {
-  randomWord = Object.keys(dataset)[
-    Math.floor(Math.random() * Object.keys(dataset).length)
-  ];
+  randomWord = selectRandomWord;
   displayOutput(randomWord, "All", dataset[randomWord]);
 }
+selectRandomWord = Object.keys(dataset)[
+  Math.floor(Math.random() * Object.keys(dataset).length)
+];
 module.exports = {
   findDefinition,
   findSynonyms,
@@ -42,4 +43,5 @@ module.exports = {
   findAll,
   findExample,
   findRandom,
+  selectRandomWord,
 };

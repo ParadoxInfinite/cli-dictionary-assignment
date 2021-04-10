@@ -10,6 +10,7 @@ const {
   findDefinition,
   findRandom,
 } = require("./utils");
+const game = require("./game");
 
 // Initialize commander
 program
@@ -39,12 +40,16 @@ program
 program
   .command("play")
   .description("Start the game!")
-  .action(() => console.log(`Start the game`));
+  .action(() => game());
 
 if (process.argv[2] === undefined) {
   findRandom();
   return;
-} else if (process.argv.length === 3 && !process.argv[2].includes("-")) {
+} else if (
+  process.argv.length === 3 &&
+  !process.argv[2].includes("-") &&
+  process.argv[2] !== "play"
+) {
   findAll(process.argv[2]);
   return;
 }

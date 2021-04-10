@@ -1,12 +1,18 @@
 {
   "logic": {
-    "definition": "A particular method of reasoning or argumentation.",
+    "definition": [
+      "A particular method of reasoning or argumentation.",
+      "Reasoning conducted or assessed according to strict principles of validity."
+    ],
     "synonyms": ["sanity", "sense", "rationale"],
     "antonyms": ["foolishness", "madness", "absurdity"],
     "example": "The math genius used logic and a special formula to solve the difficult equation."
   },
   "blur": {
-    "definition": "To obscure or sully (something) by smearing or with a smeary substance.",
+    "definition": [
+      "A smear or stain that obscures.",
+      "Something vaguely or indistinctly perceived"
+    ],
     "synonyms": ["dim", "muddy", "bedim"],
     "antonyms": ["focus", "clear", "clarify"],
     "example": "This is where the dividing line between ratepayers and taxpayers begins to blur."

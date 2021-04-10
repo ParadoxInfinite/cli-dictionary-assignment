@@ -4,21 +4,17 @@ function displayOutput(word, type, results) {
     console.log(
       chalk.grey("---------------------------------------------------------")
     );
-    console.log("Given word: " + chalk.bgCyan.whiteBright(" " + word + " "));
+    console.log("Given word: " + outputFormat(word));
     if (type !== "All") {
       console.log(
-        chalk.bgCyan.whiteBright(" " + type + " ") +
-          " for the given word: " +
-          chalk.bgCyan.whiteBright(" " + results + " ")
+        outputFormat(type) + " for the given word: " + outputFormat(results)
       );
     } else {
       for (let type in results) {
         console.log(
-          chalk.bgCyan.whiteBright(
-            " " + type[0].toUpperCase() + type.slice(1) + " "
-          ) +
+          outputFormat(type[0].toUpperCase() + type.slice(1)) +
             " for the given word: " +
-            chalk.bgCyan.whiteBright(" " + results[type] + " ")
+            outputFormat(results[type])
         );
       }
     }
@@ -29,8 +25,15 @@ function displayOutput(word, type, results) {
 }
 function displayNotFound(word) {
   console.log(
-    chalk.bgCyan.whiteBright(" " + word + " ") +
-      " is not in our database, please try another word."
+    outputFormat(word) + " is not in our database, please try another word."
   );
 }
-module.exports = { displayOutput, displayNotFound };
+
+function outputFormat(wordToFormat) {
+  return chalk.bgCyan.whiteBright(" " + wordToFormat + " ");
+}
+
+function displayGameHint(hint, type) {
+  console.log("Hint: " + outputFormat(hint) + " | Type: " + outputFormat(type));
+}
+module.exports = { displayOutput, displayNotFound, displayGameHint };
