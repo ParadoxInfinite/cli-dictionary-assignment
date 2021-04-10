@@ -20,22 +20,22 @@ program
 program
   .command("def <word>")
   .description("Shows the definition of the given word")
-  .action((word) => findDefinition(word));
+  .action((word) => findDefinition(word.toLowerCase()));
 
 program
   .command("syn <word>")
   .description("Shows the synonyms for the given word")
-  .action((word) => findSynonyms(word));
+  .action((word) => findSynonyms(word.toLowerCase()));
 
 program
   .command("ant <word>")
   .description("Shows the antonyms for the given word")
-  .action((word) => findAntonyms(word));
+  .action((word) => findAntonyms(word.toLowerCase()));
 
 program
   .command("ex <word>")
   .description("Shows an example for the given word")
-  .action((word) => findExample(word));
+  .action((word) => findExample(word.toLowerCase()));
 
 program
   .command("play")
@@ -48,9 +48,9 @@ if (process.argv[2] === undefined) {
 } else if (
   process.argv.length === 3 &&
   !process.argv[2].includes("-") &&
-  process.argv[2] !== "play"
+  process.argv[2].toLowerCase() !== "play"
 ) {
-  findAll(process.argv[2]);
+  findAll(process.argv[2].toLowerCase());
   return;
 }
 
